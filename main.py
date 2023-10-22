@@ -262,6 +262,15 @@ def about_me(message):
 def about_me(message):
     bot.reply_to(message,"You have " + str(getCredit(message.from_user.id)) + " credits left.")
 
+@bot.message_handler(commands=['total_users'])
+def about_me(message):
+    if admin_id == str(message.from_user.id):
+        num_rows_with_data = 0
+        for row in worksheet.iter_rows(values_only=True):
+            if any(cell is not None for cell in row):
+                num_rows_with_data += 1
+        bot.reply_to(message,"Total users: " + str(num_rows_with_data))
+
 # reply for text 
 @bot.message_handler(func=lambda msg: True)
 def echo_all(message):
@@ -277,14 +286,5 @@ def handle_videos(message):
         worksheet1.append(new_row_data)
         workbook1.save(videos_excel_file)
         bot.reply_to(message,"Link: " + base_link + uid)
-
-@bot.message_handler(commands=['total_users'])
-def about_me(message):
-    if admin_id == str(message.from_user.id):
-        num_rows_with_data = 0
-        for row in worksheet.iter_rows(values_only=True):
-            if any(cell is not None for cell in row):
-                num_rows_with_data += 1
-        bot.reply_to(message,"Total users: " + str(num_rows_with_data))
 
 bot.infinity_polling()
