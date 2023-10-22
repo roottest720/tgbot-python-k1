@@ -203,24 +203,27 @@ def send_welcome(message):
                     column_number = 2
                     cell_value = worksheet1.cell(row=row_number, column=column_number).value
                     if cell_value is not None:
-                        credit = getCredit(message.from_user.id)
-                        if credit <= 0:
-                            token = generateToken()
-                            link = shortLink(token)
-                            if link == 1:
-                                bot.reply_to(message,"Something went wrong! Please contact admin.")
-                            else:
-                                button_1 = telebot.types.InlineKeyboardButton('Add 25 credits', url=link)
-                                keyboard = telebot.types.InlineKeyboardMarkup()
-                                keyboard.add(button_1)
-                                bot.reply_to(message,"Your credit is 0.",reply_markup=keyboard)
-                        else:
+                        if (userStatus == "creator") or (userStatus == "administrator"):
                             bot.send_video(message.from_user.id,cell_value)
-                            dCredit = decreaseCredit(message.from_user.id)
-                            if dCredit == 0:
-                                bot.send_message(message.from_user.id,"Now, you have 0 credit.")
-                            elif dCredit % 5 == 0:
-                                bot.send_message(message.from_user.id,f"{dCredit} credits left.")
+                        else:
+                            credit = getCredit(message.from_user.id)
+                            if credit <= 0:
+                                token = generateToken()
+                                link = shortLink(token)
+                                if link == 1:
+                                    bot.reply_to(message,"Something went wrong! Please contact admin.")
+                                else:
+                                    button_1 = telebot.types.InlineKeyboardButton('Add 25 credits', url=link)
+                                    keyboard = telebot.types.InlineKeyboardMarkup()
+                                    keyboard.add(button_1)
+                                    bot.reply_to(message,"Your credit is 0.",reply_markup=keyboard)
+                            else:
+                                bot.send_video(message.from_user.id,cell_value)
+                                dCredit = decreaseCredit(message.from_user.id)
+                                if dCredit == 0:
+                                    bot.send_message(message.from_user.id,"Now, you have 0 credit.")
+                                elif dCredit % 5 == 0:
+                                    bot.send_message(message.from_user.id,f"{dCredit} credits left.")
                     else:
                         bot.reply_to(message,"Invalid link!")
                 else:
