@@ -4,11 +4,11 @@ import random
 import openpyxl
 import requests
 
-BOT_TOKEN = "6469470826:AAEl8-HcgfzcrlOW5_qft3ncxtLDQ7IALaE"
+BOT_TOKEN = "6789015753:AAF3kuOEyzH-C29g9ZMj34ghORPH65UmGxc"
 
 channel_id = "-1001867856337"
 join_link = "https://telegram.dog/+u3MvJUAwUVI2YWQ9"
-base_link = "https://telegram.dog/kiara_video_send_bot?start="
+base_link = "https://telegram.dog/mia_file_send_bot?start="
 urlshortx_api = "https://urlshortx.com/api?api=e7b8d7ff3408755f4a812abece62044ee29c82f1&url="
 admin_id = "5113588348"
 
